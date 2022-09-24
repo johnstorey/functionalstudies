@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+  </PropertyGroup>
+      <Target Name="CopyFilesWorkaround" BeforeTargets="Build">
+        <Copy SourceFiles="host.json;local.settings.json" DestinationFolder="$(OutDir)" />
+    </Target>
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Dapper.FSharp" Version="3.3.0" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.1" />
+    <PackageReference Include="Npgsql.FSharp" Version="5.3.0" />
+    <PackageReference Include="SQLProvider" Version="1.3.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="host.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\net6.0" />
+    <Content Include="function.json" />
+    <Content Include="host.json" />
+    <Content Include="local.settings.json" />
+    <Content Include="metadata.json" />
+    <Content Include="obj\project.assets.json" />
+    <Content Include="obj\project.packagespec.json" />
+    <Content Include="obj\FunctionsInFSharp.fsproj.nuget.g.props" />
+    <Content Include="obj\project.nuget.cache" />
+    <Content Include="obj\FunctionsInFSharp.fsproj.nuget.g.targets" />
+    <Content Include="obj\rider.project.restore.info" />
+    <Content Include="obj\FunctionsInFSharp.fsproj.nuget.dgspec.json" />
+    <Content Include="readme.md" />
+    <Content Include="sample.dat" />
+    <Compile Include="Common.Functions.fs" />
+    <Compile Include="Common.Types.fs" />
+    <Compile Include="TaskEnvelopeModule.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="HttpTrigger.fs" />
+  </ItemGroup>
+</Project>
